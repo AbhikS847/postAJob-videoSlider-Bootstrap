@@ -11,11 +11,51 @@
         h2{
                 font-family: 'Noto Sans JP', sans-serif;
         }
+        button{
+            color:'#D4AF37!important';
+        }
+        button:hover,button:focus{
+          outline:none;
+        }
+
+        iframe{
+          animation: fadeIn linear 2s;
+  -webkit-animation: fadeIn linear 2s;
+  -moz-animation: fadeIn linear 2s;
+  -o-animation: fadeIn linear 2s;
+  -ms-animation: fadeIn linear 2s;
+        }
+
+        @keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-moz-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-o-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-ms-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
     </style>
 </head>
 <body>
     <h2 style="font-family: 'Noto Sans JP', sans-serif;">Featured Videos</h2>
     <hr>
+    <div>
     <div id="carouselExampleControls" class="carousel d-none d-sm-flex slide py-2" data-ride="carousel">
         <div class="carousel-inner px-3">
           <div class="carousel-item justify-content-center active">
@@ -50,10 +90,16 @@
         </a>
       </div>
       <div class="d-flex d-sm-none justify-content-center">
-        <button id="goLeft" style="position: absolute; margin-right:20rem;margin-top: 8rem;"><-</button>
-        <button id="goRight" style="position: absolute; margin-right:-20rem;margin-top: 8rem;">-></button>
-        <iframe id="videoToChange" width="560" height="315" src="https://www.youtube.com/embed/w82a1FT5o88" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <button id="goLeft" style="position: absolute; margin-right:20rem;margin-top: 8rem;background: transparent;border: none;"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="=50" fill="#D4AF37" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+          <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+        </svg></button>
+        <button id="goRight" style="position: absolute; margin-right:-20rem;margin-top: 8rem; background: transparent;border: none;"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="#D4AF37" class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+          <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+        </svg></button>
+        <iframe id="videoToChange" width="560" height="315" src="https://www.youtube.com/embed/1UtCgZZeUeI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
+      </div>
+    </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -65,11 +111,31 @@ let videoArrays = ['https://www.youtube.com/embed/w82a1FT5o88','https://www.yout
 
 let selectedVideo = document.querySelector('#videoToChange');
 
+let i = 0;
+
+let leftButton = document.querySelector('#goLeft');
+let rightButton = document.querySelector('#goRight');
+
 console.log(selectedVideo);
 
-for(i=0;i<videoArrays.length;i++){
-  console.log(i);
-}
+rightButton.addEventListener('click',()=>{
+  if(i>=videoArrays.length){
+    alert('looks like you have viewed all the videos');
+    i = 8;
+  }
+  else{
+    selectedVideo.src = `${videoArrays[i++]}`;
+  }
+
+})
+
+leftButton.addEventListener('click',()=>{
+  if(i<=0){
+    alert("There are no previous videos before this");
+    i = 0;
+  }
+  selectedVideo.src = `${videoArrays[i--]}`;
+});
 
 </script>
 </html>
